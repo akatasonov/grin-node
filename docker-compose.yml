@@ -1,0 +1,23 @@
+version: '3.2'
+services:
+  node:
+    build: .
+    image: grin-node
+    ports:
+      - "3413:3413"
+    volumes:
+      - grin-data:/data
+
+  wallet:
+    build: .
+    image: grin-node
+    command: wallet -e listen
+    #stdin_open: true
+    #tty: true
+    volumes:
+      - grin-data:/data
+    depends_on:
+    - node
+
+volumes:
+  grin-data: {}
